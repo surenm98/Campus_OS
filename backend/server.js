@@ -6,12 +6,18 @@ const app = express();
 const PORT = process.env.AI_PORT || 3001;
 
 // ── Middleware ──────────────────────────────────────────────
+const allowedOrigins = (process.env.CLIENT_URL || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const localOrigins = [
+  "http://localhost:5173",
+  "http://localhost:4173",
+  "http://127.0.0.1:5173",
+];
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:4173",
-    "http://127.0.0.1:5173",
-  ],
+  origin: allowedOrigins.length ? allowedOrigins : localOrigins,
   methods: ["GET", "POST"],
 }));
 app.use(express.json());
