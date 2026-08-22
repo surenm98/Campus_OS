@@ -4,6 +4,10 @@
 
 Campus OS is a full-stack web application for campus communities. It provides secure accounts and tailored dashboards for students, faculty, parents, security teams, and administrators, with AI-assisted insights and campus safety tools.
 
+## Live demo
+
+The frontend is deployed on Railway: [frontend-production-0039.up.railway.app](https://frontend-production-0039.up.railway.app/)
+
 ## Highlights
 
 - Secure registration and sign-in with JWT authentication and hashed passwords
@@ -14,6 +18,16 @@ Campus OS is a full-stack web application for campus communities. It provides se
 - Security command center, safety alerts, night-walk tools, and 3D campus visualisation
 - Admin user management and operational dashboards
 - AI-assisted analysis powered by Gemini and Groq
+
+## What makes Campus OS different
+
+Campus OS combines workflows that are usually scattered across separate academic, wellbeing, parent-communication, and safety systems. Rather than showing every user the same portal, it delivers focused, role-specific views while preserving a shared picture of campus operations:
+
+- **Student-first support:** Academic performance, attendance, wellbeing signals, and AI assistance are presented together so students can act on their progress early.
+- **Connected stakeholders:** Faculty and parents can view the information relevant to supporting a student without navigating a generic one-size-fits-all dashboard.
+- **Safety built into the platform:** The security experience includes alerts, incident triage, guard deployment, night-walk support, and a 3D campus heatmap—not an afterthought bolted onto an academic portal.
+- **Actionable administration:** Administrators can manage users, review attendance and wellbeing trends, and coordinate emergency broadcasts from one operational view.
+- **AI with a practical purpose:** Gemini and Groq integrations support guided analysis and chat-based help, complementing the platform's structured dashboard data.
 
 ## Architecture
 
@@ -140,6 +154,21 @@ VITE_AI_API_URL=https://your-ai-domain/api/ai/chat
 # Main API
 CLIENT_URL=https://your-frontend-domain
 ```
+
+### Railway frontend
+
+The current frontend deployment is available at `https://frontend-production-0039.up.railway.app/`.
+
+When deploying a new frontend build, set `VITE_API_URL` and (if the AI chat service is deployed separately) `VITE_AI_API_URL` in Railway before building. On the backend, set `CLIENT_URL` to the Railway frontend URL so browser requests are accepted by CORS. Do not add database credentials, JWT secrets, or AI-provider keys to the repository; store them as Railway service variables instead.
+
+### Suggested production services
+
+| Service | Responsibility |
+| --- | --- |
+| Railway static frontend | React/Vite client application |
+| Node API service | Authentication, dashboard, admin, and AI-analysis API routes |
+| AI chat service | Optional standalone Groq chat endpoint |
+| Managed MySQL | Persistent user and dashboard data |
 
 ## License
 
